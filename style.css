@@ -1,3 +1,6 @@
+/* ------------------------------
+   THEME VARIABLES & BASE
+   ------------------------------ */
 :root {
   --bg: #0b0f17;
   --surface: #0f1720;
@@ -51,6 +54,125 @@ a {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+}
+
+/* ------------------------------
+   PAGE LOADER (orbit)
+   ------------------------------ */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition: opacity 0.6s ease;
+}
+
+.loader-center {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+}
+
+.loader-badge {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.orbit {
+  width: 88px;
+  height: 88px;
+  position: relative;
+  border-radius: 50%;
+}
+
+.orbit .dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: -32px 0;
+}
+
+.orbit .dot::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 12px rgba(124, 92, 255, 0.28);
+}
+
+.dot1 {
+  animation: orbit1 1.2s linear infinite;
+}
+
+.dot2 {
+  animation: orbit2 1.5s linear infinite;
+}
+
+.dot3 {
+  animation: orbit3 1.8s linear infinite;
+}
+
+@keyframes orbit1 {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes orbit2 {
+  from {
+    transform: translate(-50%, -50%) rotate(120deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(480deg);
+  }
+}
+
+@keyframes orbit3 {
+  from {
+    transform: translate(-50%, -50%) rotate(240deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(600deg);
+  }
+}
+
+/* ------------------------------
+   CUSTOM CURSOR
+   ------------------------------ */
+#cursor-dot {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 100;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  box-shadow: 0 0 12px rgba(124, 92, 255, 0.18);
+}
+
+#cursor-trail {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 90;
 }
 
 /* ------------------------------
