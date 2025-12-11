@@ -1,5 +1,27 @@
+/* ---------------------------
+   CLEAN final app.js - FIXED
+   --------------------------- */
+
+/* Year */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* PAGE LOADER: fade out on window.load */
+window.addEventListener("load", () => {
+  const loader = document.getElementById("page-loader");
+  if (loader && window.gsap) {
+    gsap.to(loader, {
+      opacity: 0,
+      duration: 0.55,
+      ease: "power2.out",
+      onComplete: () => {
+        loader.style.display = "none";
+      },
+    });
+  } else if (loader) {
+    loader.style.display = "none";
+  }
+});
 
 /* MOBILE NAV */
 const menuBtn = document.getElementById("menuBtn");
@@ -18,7 +40,7 @@ function applyTheme(light) {
   if (themeIcon) themeIcon.className = light ? "fa fa-sun" : "fa fa-moon";
   try {
     localStorage.setItem("site-theme", light ? "light" : "dark");
-  } catch (e) {}
+  } catch (e) { }
 }
 themeToggle?.addEventListener("click", () =>
   applyTheme(!document.body.classList.contains("light"))
@@ -28,7 +50,7 @@ try {
   const s = localStorage.getItem("site-theme");
   if (s === "light") applyTheme(true);
   else if (s === "dark") applyTheme(false);
-} catch (e) {}
+} catch (e) { }
 
 /* TYPING EFFECT */
 (function typing() {
@@ -100,6 +122,21 @@ if (window.particlesJS) {
   });
 }
 
+/* GSAP PARALLAX (Hero only - removed conflicting scroll animations) */
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.to(".hero-inner", {
+    y: -26,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: 1,
+    },
+  });
+}
+
 /* 3D TILT */
 document.querySelectorAll(".tilt").forEach((card) => {
   card.addEventListener("mousemove", (e) => {
@@ -112,6 +149,49 @@ document.querySelectorAll(".tilt").forEach((card) => {
   });
   card.addEventListener("mouseleave", () => (card.style.transform = ""));
 });
+
+/* CURSOR + TRAIL (lightweight) */
+const cursor = document.getElementById("cursor-dot");
+const canvas = document.getElementById("cursor-trail");
+const ctx = canvas?.getContext("2d");
+
+function resizeCanvas() {
+  if (canvas) {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+  }
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+let mouse = { x: innerWidth / 2, y: innerHeight / 2 },
+  points = [];
+for (let i = 0; i < 12; i++) points.push({ x: mouse.x, y: mouse.y });
+
+window.addEventListener("pointermove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  if (cursor) {
+    cursor.style.left = mouse.x + "px";
+    cursor.style.top = mouse.y + "px";
+  }
+});
+
+function draw() {
+  if (!ctx) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  points.unshift({ x: mouse.x, y: mouse.y });
+  points.length = 12;
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(0,212,255,${1 - i / points.length})`;
+    ctx.arc(p.x, p.y, 10 - i * 0.6, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
 
 /* accessibility reduced motion */
 if (
