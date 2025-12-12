@@ -412,12 +412,18 @@ a {
 }
 
 .thumb {
-  height: 140px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  overflow: hidden;
   margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
 }
 
+.thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
 .project-meta {
   display: flex;
   justify-content: space-between;
