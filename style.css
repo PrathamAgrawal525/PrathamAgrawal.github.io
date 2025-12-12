@@ -558,3 +558,13 @@ a {
     animation: none !important;
   }
 }
+#contact {
+  text-align: center;
+}
+
+#contact p,
+#contact .lead {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
