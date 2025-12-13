@@ -255,6 +255,10 @@ a {
   outline-offset: 3px;
 }
 
+.close-btn {
+  display: none;
+}
+
 /* mobile */
 .menu-btn {
   display: none;
@@ -280,11 +284,9 @@ a {
     top: 0;
     height: 100vh;
     width: 280px;
-    background: linear-gradient(
-      180deg,
-      rgba(8, 12, 22, 0.98),
-      rgba(8, 12, 22, 0.95)
-    );
+    background: linear-gradient(180deg,
+        rgba(8, 12, 22, 0.98),
+        rgba(8, 12, 22, 0.95));
     flex-direction: column;
     padding: 120px 24px;
     gap: 20px;
@@ -296,13 +298,28 @@ a {
     right: 0;
   }
 
+  .close-btn {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 22px;
+    color: var(--muted);
+    background: transparent;
+    border: 0;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 30;
+  }
+
   body.menu-open::before {
     content: "";
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(4px);
-    z-index: 28;
+    z-index: 20;
   }
 }
 
@@ -417,12 +434,14 @@ a {
   overflow: hidden;
   margin-bottom: 12px;
   background: var(--surface);
-  text-align: center; /* centers image horizontally */
+  text-align: center;
+  /* centers image horizontally */
 }
 
 .thumb img {
   width: 100%;
-  height: auto;       /* keeps full aspect ratio */
+  height: auto;
+  /* keeps full aspect ratio */
   display: block;
 }
 
@@ -558,6 +577,7 @@ a {
     animation: none !important;
   }
 }
+
 #contact {
   text-align: center;
 }

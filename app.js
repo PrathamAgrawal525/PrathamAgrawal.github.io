@@ -26,11 +26,13 @@ window.addEventListener("load", () => {
 /* MOBILE NAV */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
+const closeBtn = document.getElementById("closeBtn");
 menuBtn?.addEventListener("click", () => {
   const open = navLinks.classList.toggle("open");
   document.body.classList.toggle("menu-open", open);
   menuBtn.setAttribute("aria-expanded", String(open));
 });
+closeBtn?.addEventListener("click", () => menuBtn.click());
 
 /* THEME TOGGLE (persist) */
 const themeToggle = document.getElementById("themeToggle");
